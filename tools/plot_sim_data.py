@@ -1,37 +1,42 @@
-import matplotlib.pyplot as plt
 import csv
+import matplotlib.pyplot as plt
 
-TIME = []
-ALTITUDE = []
-VELOCITY = []
-THRUST = []
+# Read CSV data
+time = []
+altitude = []
+velocity_y = []
+position_x = []
+velocity_x = []
+thrust = []
 
-# Read from CSV output of simulation
 with open("../build/simulation_output.csv", newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        TIME.append(int(row['Time']))
-        ALTITUDE.append(float(row['Altitude']))
-        VELOCITY.append(float(row['Velocity']))
-        THRUST.append(float(row['Thrust']))
+        time.append(float(row["Time"]))
+        altitude.append(float(row["Altitude"]))
+        velocity_y.append(float(row["VelocityY"]))
+        position_x.append(float(row["PositionX"]))
+        velocity_x.append(float(row["VelocityX"]))
+        thrust.append(float(row["Thrust"]))
 
-plt.figure(figsize=(12, 6))
-
+# Plot Altitude vs Time
+plt.figure(figsize=(10, 6))
 plt.subplot(2, 1, 1)
-plt.plot(TIME, ALTITUDE, label="Altitude")
-plt.title("Rocket Altitude Over Time")
+plt.plot(time, altitude, label="Altitude (m)")
 plt.xlabel("Time (s)")
 plt.ylabel("Altitude (m)")
 plt.grid(True)
 plt.legend()
 
+# Plot VelocityX and VelocityY vs Time
 plt.subplot(2, 1, 2)
-plt.plot(TIME, THRUST, label="Thrust", color='orange')
-plt.title("Thrust Command Over Time")
+plt.plot(time, velocity_y, label="Vertical Velocity (m/s)")
+plt.plot(time, velocity_x, label="Horizontal Velocity (m/s)")
 plt.xlabel("Time (s)")
-plt.ylabel("Thrust")
+plt.ylabel("Velocity (m/s)")
 plt.grid(True)
 plt.legend()
 
 plt.tight_layout()
+plt.suptitle("Rocket Avionics Simulation (2D)", y=1.02)
 plt.show()
