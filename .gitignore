@@ -1,0 +1,12 @@
+# CMake build artifacts
+/build/
+/CMakeFiles/
+/Makefile
+/CMakeCache.txt
+
+# Output files
+simulation_output.csv
+
+# OS clutter
+.DS_Store
+*.swp
